@@ -14,8 +14,6 @@
     --switch-front-off: #ececec;
 }
 
-/* Defaults */
-
 html {
     height: 100%;
     display: flex;
@@ -25,33 +23,10 @@ html {
     box-sizing: border-box;
 }
 
-*, *::before, *::after {
-    box-sizing: inherit;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-p, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-weight: normal;
-}
-
-/* Helper Classes */
-
-.mt-0 {
-    margin-top: 0;
-}
-
 /* Main Styles */
 
 body {
-    margin: 0;
     width: var(--popup-width);
-    font-family: "Open Sans", sans-serif;
-    color: #333;
     background-color: white;
     /* border-radius: var(--border-radius); */
 }
