@@ -4,6 +4,7 @@
     "description": "chrome extension that attempts to hide spoilers on youtube",
     "version": "1.0",
     "manifest_version": 3,
+    "options_page": "options.html",
     "background": {
         "service_worker": "background.js"
     },
@@ -16,18 +17,6 @@
         "https://www.youtube.com/"
     ],
     "action": {
-        "default_popup": "popup.html",
-        "default_icon": {
-            "16": "/rsc/imgs/ico16.png",
-            "32": "/rsc/imgs/ico32.png",
-            "48": "/rsc/imgs/ico48.png",
-            "128": "/rsc/imgs/ico128.png"
-        }
-    },
-    "icos": {
-        "16": "/rsc/imgs/ico16.png",
-        "32": "/rsc/imgs/ico32.png",
-        "48": "/rsc/imgs/ico48.png",
-        "128": "/rsc/imgs/ico128.png"
+        "default_popup": "popup.html"
     }
 }

@@ -1,0 +1,117 @@
+:root {
+    --primary-padding: 16px;
+    --text-field-padding: 10px 20px;
+    --border-radius: 5px;
+    --color-blue: #1971e3;
+    --button-hover: #6097df;
+    --alt-bg-color: #eee;
+    --border-color: #e6e6e6;
+}
+
+.alt-bg {
+    background-color: var(--alt-bg-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+}
+
+h1.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;  
+    max-width: 1000px;
+    margin: auto; 
+    padding: var(--primary-padding);
+}
+
+.section:not(.header) {
+    gap: var(--primary-padding);
+}
+
+.keywords-section {
+    padding-top: 0;
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.input-field input[type="text"] {
+    font-family: var(--deafult-font);
+    padding: var(--text-field-padding);
+    border-radius: var(--border-radius);
+    border: 1px solid black;
+    flex: 1;
+}
+
+.add-button {
+    cursor: pointer;
+    padding: 9px 16px;
+    border-radius: var(--border-radius);
+    background-color: var(--color-blue);
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.add-button:hover {
+    background-color: var(--button-hover);
+}
+
+.filtered-phrases {
+    display: flex;
+    flex-direction: column;
+    gap: var(--primary-padding);
+}
+
+.list-item {
+    padding: 5px 10px 5px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px 0 #dddddd80;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.list-item * {
+    z-index: 0;
+}
+
+.list-item img {
+    opacity: 0;
+    transition: opacity 0.2s
+}
+
+.list-item:before {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    background: #ff7a75;
+    border-radius: var(--border-radius);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.2s ease;
+}
+
+.list-item:hover:before {
+    transform: scaleY(1);
+    transform-origin: bottom;
+}
+
+.list-item:hover img {
+    opacity: 1;
+}
