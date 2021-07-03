@@ -61,11 +61,13 @@ function hideSpoilers() {
         try {
             let video = $(this);
             let videoTitle = video.find('#video-title').text();
+            let thumbnailWidth = video.find('#thumbnail').width()
+            let thumbnailHeight = video.find('#thumbnail').height()
             if(hasKeyword(videoTitle) && video.find('.overlay').length === 0) {
                 if(removeVideos) {
                     removeVideo(video);
                 } else {
-                    blurVideo(video, videoTitle);
+                    blurVideo(video, videoTitle, thumbnailWidth, thumbnailHeight);
                 }
             }
         } catch(e) {
@@ -87,9 +89,15 @@ function hasKeyword(videoTitle) {
     return foundMatch;
 }
 
-function blurVideo(video, videoTitle) {
+function blurVideo(video, videoTitle, width, height) {
     video.find(':first-child').addClass('blur');
-    video.append('<div class="overlay">Click to Show</div>');
+    video.append(`
+        <div class="overlay">
+            <div class="overlay-thumbnail" style="width: ${width}px; height: ${height}px">
+                Click to Show
+            </div>
+        </div>
+    `);
     video.find('.overlay').on('click', function() {
         removeOverlay($(this), videoTitle);
     });

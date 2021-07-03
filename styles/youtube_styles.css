@@ -14,7 +14,14 @@
     left: 0;
     bottom: 0;
     right: 0;
+    
+    cursor: pointer;
+    z-index: 301;
+    background-color: rgba(0, 0, 0, 0);
+    transition: all 0.2s;
+}
 
+.overlay-thumbnail {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,13 +30,9 @@
     font-weight: 700;
     font-size: 24px;
     color: rgba(255, 255, 255, 0);
-    
-    cursor: pointer;
-    z-index: 301;
-    background-color: rgba(0, 0, 0, 0);
-    transition: all 0.2s ease;
+    transition: all 0.2s;
 }
 
-.overlay:hover {
+.overlay:hover .overlay-thumbnail {
     color: rgba(255, 255, 255, 1);
 }
