@@ -36,7 +36,8 @@ const keywordFilters = [
     'Black Widow',
     'Minecraft',
     'Bad Batch',
-    'manhunt'
+    'manhunt',
+    'toyota'
 ];
 
 const removeVideos = false;
@@ -51,6 +52,8 @@ function hideSpoilers() {
         'ytd-rich-item-renderer',
         'ytd-compact-video-renderer'
     ];
+
+    $('ytd-rich-item-renderer').css('position', 'relative');
     
     let videos = $(classSelectors.join());
     
