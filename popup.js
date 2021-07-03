@@ -7,7 +7,6 @@ document.onclick = function click(event) {
 }
 
 let optionsLink = document.getElementById('options-link');
-
 optionsLink.addEventListener('click', () => {
     if (chrome.runtime.openOptionsPage) {
       chrome.runtime.openOptionsPage();
@@ -41,8 +40,11 @@ chrome.storage.sync.get('options', (data) => {
     }
 });
 
-// FUNCTIONS //
-
+/**
+ * create new pin toggle element
+ * @param value corresponding keyword
+ * @return new pin toggle element
+ */
 function newPinToggle(value) {
     let pinToggle = document.createElement('div');
     pinToggle.classList.add('pin-toggle');
@@ -53,6 +55,11 @@ function newPinToggle(value) {
     return pinToggle;
 }
 
+/**
+ * toggle whether keyword should be included in keyword filters 
+ * @param el html element
+ * @param value keyword string
+ */
 function togglePin(el, value) {
     if(el.classList.contains('disabled')) {
         options.disabledPinnedKeywords = options.disabledPinnedKeywords.filter(e => e !== value)

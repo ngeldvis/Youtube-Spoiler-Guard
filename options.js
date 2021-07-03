@@ -78,8 +78,11 @@ chrome.storage.sync.get('options', (data) => {
     }
 })
 
-// FUNCTIONS
-
+/**
+ * remove keyword from user's filter options
+ * @param keyword keyword to remove
+ * @param container html list item container to be removed
+ */
 function removeKeyword(keyword, container) {
     options.filteredKeywords = options.filteredKeywords.filter(e => e !== keyword);
     options.pinnedKeywords = options.pinnedKeywords.filter(e => e !== keyword);
@@ -88,12 +91,22 @@ function removeKeyword(keyword, container) {
     container.remove();
 }
 
+/**
+ * remove channel from user's filter options
+ * @param channel channel to remove
+ * @param container html list item container to be removed
+ */
 function removeChannel(channel, container) {
     options.filteredChannels = options.filteredChannels.filter(e => e !== channel);
     chrome.storage.sync.set({options});
     container.remove();
 }
 
+/**
+ * pin/unpin a keyword from being pinned to the popup menu
+ * @param keyword keyword to toggle 
+ * @param container html element to modify
+ */
 function togglePin(keyword, container) {
     if(container.classList.contains('pinned')) {
         options.pinnedKeywords = options.pinnedKeywords.filter(e => e !== keyword);
@@ -107,14 +120,46 @@ function togglePin(keyword, container) {
     }
 }
 
+/**
+ * modify list items html element to show that the item has been pinned
+ * @param item html element
+ */
+function pinItem(item) {
+    item.classList.add('pinned');
+    item.querySelector('.pin img').setAttribute('src', 'rsc/images/pinned.svg');
+} 
+
+/**
+ * modify list items html element to show that the item has been unpinned
+ * @param item html element
+ */
+function unpinItem(item) {
+    item.classList.remove('pinned');
+    item.querySelector('.pin img').setAttribute('src', 'rsc/images/pin.svg');
+}
+
+/**
+ * add keyword element to the keywords list
+ * @param keyword keyword to add
+ */
 function addKeywordElement(keyword) {
     document.getElementById('keywords-list').append(newListItem(keyword, false));
 }
 
+/**
+ * add channel element to the channels list
+ * @param keyword channel to add
+ */
 function addChannelElement(channel) {
     document.getElementById('channels-list').append(newListItem(channel, true));
 }
 
+/**
+ * create new list item container element to be added to the page
+ * @param name name of the keyword or channel
+ * @param isChannel whether or not the new element is for a new channel or new keyword
+ * @return new list item container element
+ */
 function newListItem(name, isChannel) {
     let listItemContainer = document.createElement('div');
     listItemContainer.classList.add('list-item-container');
@@ -147,14 +192,4 @@ function newListItem(name, isChannel) {
     }
 
     return listItemContainer;
-}
-
-function pinItem(item) {
-    item.classList.add('pinned');
-    item.querySelector('.pin img').setAttribute('src', 'rsc/images/pinned.svg');
-} 
-
-function unpinItem(item) {
-    item.classList.remove('pinned');
-    item.querySelector('.pin img').setAttribute('src', 'rsc/images/pin.svg');
 }
