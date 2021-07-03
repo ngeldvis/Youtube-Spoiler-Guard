@@ -9,9 +9,8 @@
     --alt-bg-color: #f7f7f7;
 
     /* Switch Colors */
-    --switch-back-on: #c4dbf9;
+    --blue-light: #c4dbf9;
     --switch-back-off: #bdbdbd;
-    --switch-front-on: #1971e3;
     --switch-front-off: #ececec;
 }
 
@@ -118,12 +117,12 @@ main .section {
 }
 
 .switch-input:checked ~ .switch-control {
-    background-color: var(--switch-back-on);
+    background-color: var(--blue-light);
 }
 
 .switch-input:checked ~ .switch-control:after {
     left: 16px;
-    background-color: var(--switch-front-on);
+    background-color: var(--blue);
 }
 
 main .section2 {
@@ -132,7 +131,43 @@ main .section2 {
     border-bottom: 1px solid var(--border-color);
 }
 
-.info-card {
+.pinned-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.pin-toggle {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--primary-padding);
+    background-color: #e8f0fe;
+    border: 1px solid var(--blue);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    color: var(--blue);
+    transition: all 0.2s;
+}
+
+.pin-toggle:hover {
+    background-color: var(--blue-light);
+}
+
+.pin-toggle.disabled {
+    border: 1px solid #aaa;
+    background-color: #eee;
+    color: #aaa;
+} 
+
+.pin-toggle.disabled:hover {
+    background-color: #ddd;
+    color: #888;
+}
+
+/* .info-card {
     width: 100%;
     display: flex;
     background-color: white;
@@ -146,7 +181,7 @@ main .section2 {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .footer-link {
     display: flex;

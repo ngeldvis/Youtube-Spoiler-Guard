@@ -1,3 +1,11 @@
+document.onclick = function click(event) {
+    if(event) {
+        if(event.target.matches('.pin-toggle')) {
+            togglePin(event.target, event.target.innerHTML)
+        }
+    }
+}
+
 let optionsLink = document.getElementById('options-link');
 
 optionsLink.addEventListener('click', () => {
@@ -20,3 +28,39 @@ document.addEventListener('DOMContentLoaded', function () {
         })();
     }
 });
+
+const options = {};
+
+chrome.storage.sync.get('options', (data) => {
+    Object.assign(options, data.options);
+    let grid = document.getElementById('pinned-grid');
+    if(options.pinnedKeywords.length > 0) {
+        options.pinnedKeywords.forEach(keyword => {
+            grid.appendChild(newPinToggle(keyword));
+        });
+    }
+});
+
+// FUNCTIONS //
+
+function newPinToggle(value) {
+    let pinToggle = document.createElement('div');
+    pinToggle.classList.add('pin-toggle');
+    if(options.disabledPinnedKeywords.includes(value)) {
+        pinToggle.classList.add('disabled');
+    }
+    pinToggle.innerHTML = value;
+    return pinToggle;
+}
+
+function togglePin(el, value) {
+    if(el.classList.contains('disabled')) {
+        options.disabledPinnedKeywords = options.disabledPinnedKeywords.filter(e => e !== value)
+        chrome.storage.sync.set({options});
+        el.classList.remove('disabled');
+    } else {
+        options.disabledPinnedKeywords.push(value);
+        chrome.storage.sync.set({options});
+        el.classList.add('disabled');
+    }
+}

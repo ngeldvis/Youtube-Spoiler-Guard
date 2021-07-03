@@ -1,4 +1,3 @@
-
 document.onclick = function click(event) {
     if(event) {
         if(event.target.matches('#keywords-list .list-item .remove')) {
@@ -26,14 +25,14 @@ const options = {};
 
 chrome.storage.sync.get('options', (data) => {
     Object.assign(options, data.options);
-    if(options.filtered_keywords.length > 0) {
+    if(options.filteredKeywords.length > 0) {
         document.getElementById('no-keywords-list-content').classList.add('hide')
-        options.filtered_keywords.forEach(keyword => {
+        options.filteredKeywords.forEach(keyword => {
             document.getElementById('keywords-list').append(newListItem(keyword));
         });
     }
     let listItems = document.querySelectorAll('#keywords-list .list-item-container');
-    options.pinned_keywords.forEach(keyword => {
+    options.pinnedKeywords.forEach(keyword => {
         listItems.forEach(item => {
             let value = item.querySelector('.list-item .list-value').textContent;
             if(value === keyword) {
@@ -41,32 +40,32 @@ chrome.storage.sync.get('options', (data) => {
             }
         });
     });
-    if(options.filtered_channels.length > 0) {
+    if(options.filteredChannels.length > 0) {
         document.getElementById('no-channels-list-content').classList.add('hide')
-        options.filtered_channels.forEach(channel => {
+        options.filteredChannels.forEach(channel => {
             document.getElementById('channels-list').append(newListItem(channel));
         });
     }
 })
 
 function removeKeyword(keyword, container) {
-    container.remove();
-    options.filtered_keywords = options.filtered_keywords.filter(e => e !== keyword);
-    options.pinned_keywords = options.pinned_keywords.filter(e => e !== keyword);
+    options.filteredKeywords = options.filteredKeywords.filter(e => e !== keyword);
+    options.pinnedKeywords = options.pinnedKeywords.filter(e => e !== keyword);
+    options.disabledPinnedKeywords = options.disabledPinnedKeywords.filter(e => e !== keyword);
     chrome.storage.sync.set({options});
+    container.remove();
 }
 
 function togglePin(keyword, container) {
     if(container.classList.contains('pinned')) {
-        options.pinned_keywords = options.pinned_keywords.filter(e => e !== keyword);
+        options.pinnedKeywords = options.pinnedKeywords.filter(e => e !== keyword);
         chrome.storage.sync.set({options});
         unpinItem(container);
     } else {
-        options.pinned_keywords.push(keyword);
+        options.pinnedKeywords.push(keyword);
         chrome.storage.sync.set({options});
         pinItem(container);
     }
-    console.log(options.pinned_keywords);
 }
 
 function newListItem(name) {

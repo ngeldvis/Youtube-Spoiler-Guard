@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(async () => {
     chrome.storage.sync.set({
         options: {
-            filtered_keywords: [
+            filteredKeywords: [
                 'Loki',
                 'Infinity War',
                 'Endgame',
@@ -11,12 +11,15 @@ chrome.runtime.onInstalled.addListener(async () => {
                 'manhunt',
                 'toyota'
             ],
-            pinned_keywords: [
+            pinnedKeywords: [
                 'Loki',
                 'Endgame',
                 'Black Widow'
             ],
-            filtered_channels: [
+            disabledPinnedKeywords: [
+                'Endgame'
+            ],
+            filteredChannels: [
                 'Marvel Studios',
                 'Star Wars'
             ]

@@ -1,5 +1,8 @@
 :root {
     --deafult-font: "Open Sans";
+    --blue: #1a73e8;
+    --blue-light: #c4dbf9;
+    --blue-light-light: #e8f0fe;
 }
 
 html {
