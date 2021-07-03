@@ -22,6 +22,7 @@
 
 .overlay-thumbnail {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -34,4 +35,8 @@
 
 .overlay:hover .overlay-thumbnail {
     color: rgba(255, 255, 255, 1);
+}
+
+.keywords {
+    font-size: 16px;
 }

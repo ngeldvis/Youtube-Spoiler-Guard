@@ -46,11 +46,12 @@ function hideSpoilers() {
             let thumbnailWidth = video.find('#thumbnail').width();
             let thumbnailHeight = video.find('#thumbnail').height();
 
-            if(hasKeyword(videoTitle) && video.find('.overlay').length === 0) {
+            let info = hasKeyword(videoTitle);
+            if(info.foundMatch && video.find('.overlay').length === 0) {
                 if(removeVideos) {
                     removeVideo(video);
                 } else {
-                    blurVideo(video, videoTitle, thumbnailWidth, thumbnailHeight);
+                    blurVideo(video, videoTitle, thumbnailWidth, thumbnailHeight, info.matches);
                 }
             }
         } catch(e) {
@@ -69,12 +70,17 @@ function hasKeyword(videoTitle) {
         return false;
     }
     let foundMatch = false;
+    let matches = [];
     options.filteredKeywords.filter(e => !options.disabledPinnedKeywords.includes(e)).forEach(keyword => {
         if(videoTitle.toLowerCase().includes(keyword.toLowerCase())) {
             foundMatch = true;
+            matches.push(keyword);
         }
     });
-    return foundMatch;
+    return {
+        foundMatch: foundMatch,
+        matches: matches
+    };
 }
 
 /**
@@ -84,12 +90,13 @@ function hasKeyword(videoTitle) {
  * @param width width of the video's thumbnail
  * @param height height of the video's thumbnail
  */
-function blurVideo(video, videoTitle, width, height) {
+function blurVideo(video, videoTitle, width, height, matches) {
     video.find(':first-child').addClass('blur');
     video.append(`
         <div class="overlay">
             <div class="overlay-thumbnail" style="width: ${width}px; height: ${height}px">
-                Click to Show
+                <div>Click to Show</div>
+                <div class="keywords">Keyword(s): ${matches.join()}</div>
             </div>
         </div>
     `);
