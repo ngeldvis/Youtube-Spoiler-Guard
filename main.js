@@ -22,37 +22,50 @@
         .ytd-item-section-renderer
 */
 
+$(document).ready(() => hideSpoilers());
+document.addEventListener('yt-navigate-start', () => hideSpoilers());
+document.addEventListener('yt-navigate-finish', () => hideSpoilers());
+document.addEventListener('DOMContentLoaded', () => hideSpoilers());
+// document.addEventListener('scroll', () => hideSpoilers());
+document.addEventListener('spfdone', () => hideSpoilers());
+
 const filters = [
     'Loki',
     'Infinity War',
+    'Endgame',
     'Black Widow',
     'Minecraft',
-    'Bad Batch'
-]
-
-let classSelectors = [
-    'ytd-video-renderer',
-    'ytd-grid-video-renderer',
-    'ytd-rich-item-renderer'
+    'Bad Batch',
+    'manhunt'
 ];
 
-let videos = $(classSelectors.join());
-
-$.each(videos, function() {
-    try {
-        let videoTitle = $(this).find('#video-title').text();
-        if(blurVideo(videoTitle)) {
-            $(this).find(':first-child').addClass('blur')
-            $(this).append('<div class="overlay">Click to Show</div>')
-            $(this).find('.overlay').on('click', function() {
-                $(this).parent().find(':first-child').removeClass('blur')
-                $(this).remove();
-            });
+function hideSpoilers() {
+    
+    let classSelectors = [
+        'ytd-video-renderer',
+        'ytd-grid-video-renderer',
+        'ytd-rich-item-renderer'
+    ];
+    
+    let videos = $(classSelectors.join());
+    
+    $.each(videos, function() {
+        try {
+            let videoTitle = $(this).find('#video-title').text();
+            if(blurVideo(videoTitle)) {
+                $(this).find(':first-child').addClass('blur');
+                $(this).append('<div class="overlay">Click to Show</div>');
+                $(this).find('.overlay').on('click', function() {
+                    $(this).parent().find(':first-child').removeClass('blur');
+                    $(this).remove();
+                });
+            }
+        } catch {
+            console.log('error');
         }
-    } catch {
-        console.log('error');
-    }
-});
+    });
+}
+
 
 function blurVideo(videoTitle) {
     let foundMatch = false;

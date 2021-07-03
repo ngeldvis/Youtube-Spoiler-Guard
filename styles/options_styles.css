@@ -2,9 +2,10 @@
     --primary-padding: 16px;
     --text-field-padding: 10px 20px;
     --border-radius: 5px;
+    --border-color: #e6e6e6;
     --color-blue: #1971e3;
     --button-hover: #6097df;
-    --alt-bg-color: #eee;
+    --alt-bg-color: #f7f7f7;
     --border-color: #e6e6e6;
     --remove-color: #dd463a;
 }
@@ -51,7 +52,7 @@ h1.title {
     font-family: var(--deafult-font);
     padding: var(--text-field-padding);
     border-radius: var(--border-radius);
-    border: 1px solid black;
+    border: 1px solid var(--border-color);
     flex: 1;
 }
 
