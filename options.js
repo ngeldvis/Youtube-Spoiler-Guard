@@ -4,19 +4,25 @@ document.onclick = (event) => {
             let container = event.target.parentNode.parentNode;
             let keyword = container.querySelector('.list-value').textContent;
             removeKeyword(keyword, container)
+            console.log(options);
         }
         if(event.target.matches('#channels-list .list-item .remove')) {
-            console.log('remove channel')
+            let container = event.target.parentNode.parentNode;
+            let channel = container.querySelector('.list-value').textContent;
+            removeChannel(channel, container)
+            console.log(options);
         }
         if(event.target.matches('#keywords-list .pin')) {
             let container = event.target.parentNode;
             let keyword = container.querySelector('.list-value').textContent;
             togglePin(keyword, container)
+            console.log(options);
         }
         if(event.target.parentNode.matches('#keywords-list .pin')) {
             let container = event.target.parentNode.parentNode;
             let keyword = container.querySelector('.list-value').textContent;
             togglePin(keyword, container)
+            console.log(options);
         }
     }
 }
@@ -29,9 +35,23 @@ document.getElementById('new-keyword-form').onsubmit = (event) => {
     options.filteredKeywords.push(newKeyword);
     chrome.storage.sync.set({options});
     addKeywordElement(newKeyword);
+    console.log(options);
+}
+
+document.getElementById('new-channel-form').onsubmit = (event) => {
+    event.preventDefault();
+    let channelField = document.getElementById('new-channel-field');
+    let newChannel = channelField.value;
+    channelField.value = "";
+    options.filteredChannels.push(newChannel);
+    chrome.storage.sync.set({options});
+    addChannelElement(newChannel);
+    console.log(options);
 }
 
 const options = {};
+console.log('Options:');
+console.log(options);
 
 chrome.storage.sync.get('options', (data) => {
     Object.assign(options, data.options);
@@ -68,6 +88,12 @@ function removeKeyword(keyword, container) {
     container.remove();
 }
 
+function removeChannel(channel, container) {
+    options.filteredChannels = options.filteredChannels.filter(e => e !== channel);
+    chrome.storage.sync.set({options});
+    container.remove();
+}
+
 function togglePin(keyword, container) {
     if(container.classList.contains('pinned')) {
         options.pinnedKeywords = options.pinnedKeywords.filter(e => e !== keyword);
@@ -83,6 +109,10 @@ function togglePin(keyword, container) {
 
 function addKeywordElement(keyword) {
     document.getElementById('keywords-list').append(newListItem(keyword, false));
+}
+
+function addChannelElement(channel) {
+    document.getElementById('channels-list').append(newListItem(channel, true));
 }
 
 function newListItem(name, isChannel) {
@@ -128,12 +158,3 @@ function unpinItem(item) {
     item.classList.remove('pinned');
     item.querySelector('.pin img').setAttribute('src', 'rsc/images/pin.svg');
 }
-
-
-
-/* Event Listeners to add
-    on add new list item click
-    on remove list item
-    on pin list item
-    on unpin list item
-*/
