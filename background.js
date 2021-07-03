@@ -1,3 +1,5 @@
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-    hideSpoilers()
+    chrome.tabs.sendMessage(tabId, {
+        message: 'pageUpdated'
+    })
 });

@@ -158,5 +158,10 @@ main .section2 {
 
 .external-links {
     display: flex;
+    align-items: center;
     gap: var(--icon-spacing);
+}
+
+.external-links a {
+    line-height: 20px;
 }
