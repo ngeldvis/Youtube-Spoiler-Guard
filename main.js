@@ -29,6 +29,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 });
 
+removeVideos = false;
+
 const options = {};
 
 chrome.storage.sync.get('options', (data) => {
@@ -74,7 +76,7 @@ function hasKeyword(videoTitle) {
         return false;
     }
     let foundMatch = false;
-    options.filteredKeywords.forEach(keyword => {
+    options.filteredKeywords.filter(e => !options.disabledPinnedKeywords.includes(e)).forEach(keyword => {
         if(videoTitle.toLowerCase().includes(keyword.toLowerCase())) {
             foundMatch = true;
         }
