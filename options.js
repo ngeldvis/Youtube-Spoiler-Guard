@@ -2,18 +2,22 @@
 document.onclick = function click(event) {
     if(event) {
         if(event.target.matches('#keywords-list .list-item .remove')) {
-            let keyword = event.target.parentNode.querySelector('.list-value').textContent;
             let container = event.target.parentNode.parentNode;
+            let keyword = container.querySelector('.list-value').textContent;
             removeKeyword(keyword, container)
         }
         if(event.target.matches('#channels-list .list-item .remove')) {
             console.log('remove channel')
         }
         if(event.target.matches('#keywords-list .pin')) {
-            console.log('toggle pin')
+            let container = event.target.parentNode;
+            let keyword = container.querySelector('.list-value').textContent;
+            togglePin(keyword, container)
         }
         if(event.target.parentNode.matches('#keywords-list .pin')) {
-            console.log('toggle pin')
+            let container = event.target.parentNode.parentNode;
+            let keyword = container.querySelector('.list-value').textContent;
+            togglePin(keyword, container)
         }
     }
 }
@@ -50,6 +54,19 @@ function removeKeyword(keyword, container) {
     options.filtered_keywords = options.filtered_keywords.filter(e => e !== keyword);
     options.pinned_keywords = options.pinned_keywords.filter(e => e !== keyword);
     chrome.storage.sync.set({options});
+}
+
+function togglePin(keyword, container) {
+    if(container.classList.contains('pinned')) {
+        options.pinned_keywords = options.pinned_keywords.filter(e => e !== keyword);
+        chrome.storage.sync.set({options});
+        unpinItem(container);
+    } else {
+        options.pinned_keywords.push(keyword);
+        chrome.storage.sync.set({options});
+        pinItem(container);
+    }
+    console.log(options.pinned_keywords);
 }
 
 function newListItem(name) {
