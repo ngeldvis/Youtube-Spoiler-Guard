@@ -6,6 +6,7 @@
     --button-hover: #6097df;
     --alt-bg-color: #eee;
     --border-color: #e6e6e6;
+    --remove-color: #dd463a;
 }
 
 .alt-bg {
@@ -55,9 +56,13 @@ h1.title {
 }
 
 .add-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    padding: 9px 16px;
-    border-radius: var(--border-radius);
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
     background-color: var(--color-blue);
     color: white;
     transition: background-color 0.2s;
@@ -86,32 +91,27 @@ h1.title {
     cursor: pointer;
 }
 
-.list-item * {
-    z-index: 0;
-}
-
-.list-item img {
-    opacity: 0;
-    transition: opacity 0.2s
-}
-
 .list-item:before {
-    content: "";
     position: absolute;
-    top: 0; bottom: 0;
-    left: 0; right: 0;
-    background: #ff7a75;
-    border-radius: var(--border-radius);
-    transform: scaleY(0);
-    transform-origin: bottom;
+    top: 0; bottom: 0; right: 0;
+    width: 100px;
+    background: var(--remove-color);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    transform: scaleX(0);
+    transform-origin: right;
     transition: transform 0.2s ease;
+    /* text */
+    content: "remove";
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .list-item:hover:before {
     transform: scaleY(1);
-    transform-origin: bottom;
-}
-
-.list-item:hover img {
-    opacity: 1;
+    transform-origin: right;
 }

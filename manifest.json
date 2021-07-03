@@ -2,19 +2,20 @@
     "name": "Youtube Spoiler Guard",
     "author": "Nigel Davis",
     "description": "chrome extension that attempts to hide spoilers on youtube",
-    "version": "1.0",
+    "version": "1.0.0",
     "manifest_version": 3,
     "options_page": "options.html",
     "background": {
         "service_worker": "background.js"
     },
+    "content_scripts": [{
+        "js": ["jquery-3.6.0.min.js", "main.js"],
+        "css": ["styles/youtube_styles.css"],
+        "matches": ["*://*.youtube.com/*"]
+    }],
     "permissions": [
         "tabs",
-        "storage",
-        "scripting"
-    ],
-    "host_permissions": [
-        "https://www.youtube.com/"
+        "storage"
     ],
     "action": {
         "default_popup": "popup.html"

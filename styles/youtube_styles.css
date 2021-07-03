@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+:root {
+    --blur-radius: 5px;
+}
+
+.blur {
+    filter: blur(var(--blur-radius))
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: "Open Sans", sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0);
+    
+    cursor: pointer;
+    z-index: 301;
+    background-color: rgba(0, 0, 0, 0);
+    transition: all 0.2s ease;
+}
+
+.overlay:hover {
+    color: rgba(255, 255, 255, 1);
+}
