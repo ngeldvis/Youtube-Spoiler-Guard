@@ -26,10 +26,9 @@
     </header>
 
     <main>
-
         <div class="section keywords-section">
             <h2>Keywords to filter</h2>
-            <p>Any videos with these phrases or keywords in the video title will be marked as potential spoilers</p>
+            <p>Any videos with these phrases or keywords in the video title will be marked as potential spoilers. Pinned items will appear in the extensions popup window for easy toggling</p>
             <div class="input-field">
                 <input class="m-0" type="text" placeholder="e.g. Avengers Endgame">
                 <div class="add-button">
@@ -41,16 +40,17 @@
         <div class="alt-bg">
             <div class="list-container section">
                 <h2>Current Filtered Phrases (Click to remove)</h2>
-                <!-- <div class="hide-if-some">
+                <div id="no-keywords-list-content">
                     <p>You have no blacklisted keywords</p>
                     <p>Keywords that you want to filter will be shown here</p>
-                </div> -->
-                <div class="filtered-phrases hide-if-none">
-                    <div class="list-item">Loki</div>
-                    <div class="list-item">Bad Batch</div>
-                    <div class="list-item">Star Wars</div>
-                    <div class="list-item">Endgame</div>
-                    <div class="list-item">Black Widow</div>
+                </div>
+                <div id="keywords-list" class="filtered-list">
+                    <!-- <div class="list-item-container pinned">
+                        <div class="list-item">Testing</div>
+                        <div class="pin">
+                            <img src="rsc/images/pin.svg" alt="pin" height="20px">
+                        </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -69,20 +69,13 @@
         <div class="alt-bg">
             <div class="list-container section">
                 <h2>Current Filtered Channels (Click to remove)</h2>
-                <!-- <div class="hide-if-some">
+                <div id="no-channels-list-content">
                     <p>You have no blacklisted channels</p>
                     <p>Channels that you want to filter will be shown here</p>
-                </div> -->
-                <div class="filtered-phrases hide-if-none">
-                    <div class="list-item">Loki</div>
-                    <div class="list-item">Bad Batch</div>
-                    <div class="list-item">Star Wars</div>
-                    <div class="list-item">Endgame</div>
-                    <div class="list-item">Black Widow</div>
                 </div>
+                <div id="channels-list" class="filtered-list"></div>
             </div>
         </div>
-
     </main>
 
     <footer class="footer">

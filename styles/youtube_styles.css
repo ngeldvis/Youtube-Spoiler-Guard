@@ -5,7 +5,8 @@
 }
 
 .blur {
-    filter: blur(var(--blur-radius))
+    filter: blur(var(--blur-radius)) grayscale(100%);
+    transition: all 0.2s;
 }
 
 .overlay {
@@ -17,8 +18,6 @@
     
     cursor: pointer;
     z-index: 301;
-    background-color: rgba(0, 0, 0, 0);
-    transition: all 0.2s;
 }
 
 .overlay-thumbnail {

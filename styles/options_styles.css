@@ -3,8 +3,8 @@
     --text-field-padding: 10px 20px;
     --border-radius: 5px;
     --border-color: #e6e6e6;
-    --color-blue: #1971e3;
-    --button-hover: #6097df;
+    --blue: #1971e3;
+    --blue-light: #c4dbf9;
     --alt-bg-color: #f7f7f7;
     --border-color: #e6e6e6;
     --remove-color: #dd463a;
@@ -64,22 +64,31 @@ h1.title {
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    background-color: var(--color-blue);
+    background-color: var(--blue);
     color: white;
     transition: background-color 0.2s;
 }
 
 .add-button:hover {
-    background-color: var(--button-hover);
+    background-color: var(--blue-light);
 }
 
-.filtered-phrases {
+.hide {
+    display: none;
+}
+
+.filtered-list {
     display: flex;
     flex-direction: column;
     gap: var(--primary-padding);
 }
 
+.list-item-container {
+    position: relative;
+}
+
 .list-item {
+    z-index: 1;
     padding: 5px 10px 5px 10px;
     display: flex;
     flex-direction: row;
@@ -89,7 +98,6 @@ h1.title {
     border-radius: var(--border-radius);
     box-shadow: 0 2px 4px 0 #dddddd80;
     transition: background-color 0.2s;
-    cursor: pointer;
 }
 
 .list-item:before {
@@ -110,9 +118,36 @@ h1.title {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
-.list-item:hover:before {
+.list-item-container:hover .list-item:before {
     transform: scaleY(1);
     transform-origin: right;
+}
+
+.pin {
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: var(--blue-light);
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    top: 0; bottom: 0; left: 0;
+    width: 37px;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.pin img {
+    transform: translate(-2.5px);
+}
+
+.list-item-container.pinned .pin {
+    transform: translate(-32px);
+}
+
+.list-item-container:hover .pin {
+    transform: translate(-32px);
 }
