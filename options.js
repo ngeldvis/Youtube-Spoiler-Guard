@@ -1,4 +1,4 @@
-document.onclick = function click(event) {
+document.onclick = (event) => {
     if(event) {
         if(event.target.matches('#keywords-list .list-item .remove')) {
             let container = event.target.parentNode.parentNode;
@@ -21,6 +21,16 @@ document.onclick = function click(event) {
     }
 }
 
+document.getElementById('new-keyword-form').onsubmit = (event) => {
+    event.preventDefault();
+    let keywordField = document.getElementById('new-keyword-field');
+    let newKeyword = keywordField.value;
+    keywordField.value = "";
+    options.filteredKeywords.push(newKeyword);
+    chrome.storage.sync.set({options});
+    addKeywordElement(newKeyword);
+}
+
 const options = {};
 
 chrome.storage.sync.get('options', (data) => {
@@ -28,7 +38,7 @@ chrome.storage.sync.get('options', (data) => {
     if(options.filteredKeywords.length > 0) {
         document.getElementById('no-keywords-list-content').classList.add('hide')
         options.filteredKeywords.forEach(keyword => {
-            document.getElementById('keywords-list').append(newListItem(keyword, false));
+            addKeywordElement(keyword);
         });
     }
     let listItems = document.querySelectorAll('#keywords-list .list-item-container');
@@ -47,6 +57,8 @@ chrome.storage.sync.get('options', (data) => {
         });
     }
 })
+
+// FUNCTIONS
 
 function removeKeyword(keyword, container) {
     options.filteredKeywords = options.filteredKeywords.filter(e => e !== keyword);
@@ -67,6 +79,10 @@ function togglePin(keyword, container) {
         chrome.storage.sync.set({options});
         pinItem(container);
     }
+}
+
+function addKeywordElement(keyword) {
+    document.getElementById('keywords-list').append(newListItem(keyword, false));
 }
 
 function newListItem(name, isChannel) {

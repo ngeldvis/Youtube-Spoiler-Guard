@@ -29,12 +29,10 @@
         <div class="section keywords-section">
             <h2>Keywords to filter</h2>
             <p>Any videos with these phrases or keywords in the video title will be marked as potential spoilers. Pinned items will appear in the extensions popup window for easy toggling</p>
-            <div class="input-field">
-                <input class="m-0" type="text" placeholder="e.g. Avengers Endgame">
-                <div class="add-button">
-                    <img src="rsc/images/plus.svg" alt="add">
-                </div>
-            </div>
+            <form id="new-keyword-form" class="input-field">
+                <input id="new-keyword-field" class="m-0" type="text" name="keyword" placeholder="e.g. Avengers Endgame" required>
+                <input class="add-button" type="image" src="rsc/images/plus.svg" alt="+"/>
+            </form>
         </div>
 
         <div class="alt-bg">
