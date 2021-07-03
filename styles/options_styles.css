@@ -100,7 +100,7 @@ h1.title {
     transition: background-color 0.2s;
 }
 
-.list-item:before {
+.list-item .remove {
     position: absolute;
     top: 0; bottom: 0; right: 0;
     width: 100px;
@@ -110,7 +110,6 @@ h1.title {
     transform-origin: right;
     transition: transform 0.2s ease;
     /* text */
-    content: "remove";
     color: white;
     font-size: 12px;
     font-weight: bold;
@@ -121,7 +120,7 @@ h1.title {
     cursor: pointer;
 }
 
-.list-item-container:hover .list-item:before {
+.list-item-container:hover .list-item .remove {
     transform: scaleY(1);
     transform-origin: right;
 }

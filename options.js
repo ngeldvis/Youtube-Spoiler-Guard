@@ -1,3 +1,23 @@
+
+document.onclick = function click(event) {
+    if(event) {
+        if(event.target.matches('#keywords-list .list-item .remove')) {
+            let keyword = event.target.parentNode.querySelector('.list-value').textContent;
+            let container = event.target.parentNode.parentNode;
+            removeKeyword(keyword, container)
+        }
+        if(event.target.matches('#channels-list .list-item .remove')) {
+            console.log('remove channel')
+        }
+        if(event.target.matches('#keywords-list .pin')) {
+            console.log('toggle pin')
+        }
+        if(event.target.parentNode.matches('#keywords-list .pin')) {
+            console.log('toggle pin')
+        }
+    }
+}
+
 const options = {};
 
 chrome.storage.sync.get('options', (data) => {
@@ -11,9 +31,9 @@ chrome.storage.sync.get('options', (data) => {
     let listItems = document.querySelectorAll('#keywords-list .list-item-container');
     options.pinned_keywords.forEach(keyword => {
         listItems.forEach(item => {
-            let value = item.querySelector('.list-item').textContent;
+            let value = item.querySelector('.list-item .list-value').textContent;
             if(value === keyword) {
-                item.classList.add('pinned');
+                pinItem(item);
             }
         });
     });
@@ -25,13 +45,30 @@ chrome.storage.sync.get('options', (data) => {
     }
 })
 
+function removeKeyword(keyword, container) {
+    container.remove();
+    options.filtered_keywords = options.filtered_keywords.filter(e => e !== keyword);
+    options.pinned_keywords = options.pinned_keywords.filter(e => e !== keyword);
+    chrome.storage.sync.set({options});
+}
+
 function newListItem(name) {
     let listItemContainer = document.createElement('div');
     listItemContainer.classList.add('list-item-container');
 
     let listItem = document.createElement('div');
     listItem.classList.add('list-item');
-    listItem.innerHTML = name;
+    
+    let listValue = document.createElement('div');
+    listValue.classList.add('list-value');
+    listValue.innerHTML = name;
+
+    let remove = document.createElement('div');
+    remove.classList.add('remove');
+    remove.innerHTML = 'remove';
+
+    listItem.appendChild(listValue);
+    listItem.appendChild(remove);
 
     let pin = document.createElement('div');
     pin.classList.add('pin');
@@ -45,6 +82,16 @@ function newListItem(name) {
     listItemContainer.appendChild(pin);
 
     return listItemContainer;
+}
+
+function pinItem(item) {
+    item.classList.add('pinned');
+    item.querySelector('.pin img').setAttribute('src', 'rsc/images/pinned.svg');
+} 
+
+function unpinItem(item) {
+    item.classList.remove('pinned');
+    item.querySelector('.pin img').setAttribute('src', 'rsc/images/pin.svg');
 }
 
 
