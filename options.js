@@ -28,7 +28,7 @@ chrome.storage.sync.get('options', (data) => {
     if(options.filteredKeywords.length > 0) {
         document.getElementById('no-keywords-list-content').classList.add('hide')
         options.filteredKeywords.forEach(keyword => {
-            document.getElementById('keywords-list').append(newListItem(keyword));
+            document.getElementById('keywords-list').append(newListItem(keyword, false));
         });
     }
     let listItems = document.querySelectorAll('#keywords-list .list-item-container');
@@ -43,7 +43,7 @@ chrome.storage.sync.get('options', (data) => {
     if(options.filteredChannels.length > 0) {
         document.getElementById('no-channels-list-content').classList.add('hide')
         options.filteredChannels.forEach(channel => {
-            document.getElementById('channels-list').append(newListItem(channel));
+            document.getElementById('channels-list').append(newListItem(channel, true));
         });
     }
 })
@@ -59,6 +59,7 @@ function removeKeyword(keyword, container) {
 function togglePin(keyword, container) {
     if(container.classList.contains('pinned')) {
         options.pinnedKeywords = options.pinnedKeywords.filter(e => e !== keyword);
+        options.disabledPinnedKeywords = options.disabledPinnedKeywords.filter(e => e !== keyword);
         chrome.storage.sync.set({options});
         unpinItem(container);
     } else {
@@ -68,7 +69,7 @@ function togglePin(keyword, container) {
     }
 }
 
-function newListItem(name) {
+function newListItem(name, isChannel) {
     let listItemContainer = document.createElement('div');
     listItemContainer.classList.add('list-item-container');
 
@@ -85,17 +86,19 @@ function newListItem(name) {
 
     listItem.appendChild(listValue);
     listItem.appendChild(remove);
-
-    let pin = document.createElement('div');
-    pin.classList.add('pin');
-    
-    let pinImg = document.createElement('img');
-    pinImg.setAttribute('src', 'rsc/images/pin.svg');
-    pinImg.setAttribute('height', '20px');
-
-    pin.appendChild(pinImg);
     listItemContainer.appendChild(listItem);
-    listItemContainer.appendChild(pin);
+
+    if(!isChannel) {
+        let pin = document.createElement('div');
+        pin.classList.add('pin');
+        
+        let pinImg = document.createElement('img');
+        pinImg.setAttribute('src', 'rsc/images/pin.svg');
+        pinImg.setAttribute('height', '20px');
+    
+        pin.appendChild(pinImg);
+        listItemContainer.appendChild(pin);
+    }
 
     return listItemContainer;
 }

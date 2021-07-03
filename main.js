@@ -29,18 +29,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 });
 
-const keywordFilters = [
-    'Loki',
-    'Infinity War',
-    'Endgame',
-    'Black Widow',
-    'Minecraft',
-    'Bad Batch',
-    'manhunt',
-    'toyota'
-];
+const options = {};
 
-const removeVideos = false;
+chrome.storage.sync.get('options', (data) => {
+    Object.assign(options, data.options);
+});
 
 let whiteList = []
 
@@ -81,7 +74,7 @@ function hasKeyword(videoTitle) {
         return false;
     }
     let foundMatch = false;
-    keywordFilters.forEach(keyword => {
+    options.filteredKeywords.forEach(keyword => {
         if(videoTitle.toLowerCase().includes(keyword.toLowerCase())) {
             foundMatch = true;
         }
