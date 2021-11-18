@@ -38,16 +38,16 @@ document.getElementById('new-keyword-form').onsubmit = (event) => {
     console.log(options);
 }
 
-document.getElementById('new-channel-form').onsubmit = (event) => {
-    event.preventDefault();
-    let channelField = document.getElementById('new-channel-field');
-    let newChannel = channelField.value;
-    channelField.value = "";
-    options.filteredChannels.push(newChannel);
-    chrome.storage.sync.set({options});
-    addChannelElement(newChannel);
-    console.log(options);
-}
+// document.getElementById('new-channel-form').onsubmit = (event) => {
+//     event.preventDefault();
+//     let channelField = document.getElementById('new-channel-field');
+//     let newChannel = channelField.value;
+//     channelField.value = "";
+//     options.filteredChannels.push(newChannel);
+//     chrome.storage.sync.set({options});
+//     addChannelElement(newChannel);
+//     console.log(options);
+// }
 
 const options = {};
 console.log('Options:');

@@ -148,3 +148,16 @@ h1.title {
 .list-item-container:hover .pin {
     transform: translate(-32px);
 }
+
+.nyi {
+    filter: blur(3px);
+}
+
+.wip {
+    margin-top: 100px;
+    z-index: 100;
+    font-size: 60px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}

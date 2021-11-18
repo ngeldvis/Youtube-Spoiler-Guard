@@ -45,7 +45,11 @@ h3 {
 .icon-link {
     cursor: pointer;
     opacity: 0.5;
-    transition: opacity 0.2s;
+    transition: all 0.2s;
+}
+
+.options-icon:hover {
+    transform: rotate(-45deg);
 }
 
 .icon-link:hover {
